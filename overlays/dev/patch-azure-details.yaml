@@ -1,0 +1,30 @@
+# fleet-rke2-azure/overlays/dev/patch-azure-details.yaml
+# Patch for Control Plane AzureConfig
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: fleet-test-dev-cp # Selector for the correct AzureConfig
+spec:
+  location: germanywestcentral # azure_location
+  resourceGroup: foo-machine # azure_resource_group
+  availabilitySet: fleet-test-dev # azure_availability_set
+  nsg: rancher-managed-fleet-test-dev # azure_nsg_name
+  subnet: fleet-test-dev # azure_subnet_name
+  # For vnet, if it's in the same resource group as the machines:
+  vnet: fleet-test-dev-vnet # azure_vnet_name
+  # If vnet is in a different resource group (e.g., 'network-rg'):
+  # vnet: network-rg:fleet-test-dev-vnet
+
+---
+# Patch for Worker/Agent AzureConfig
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: fleet-test-dev-agent # Selector for the correct AzureConfig
+spec:
+  location: germanywestcentral # azure_location
+  resourceGroup: foo-machine # azure_resource_group
+  availabilitySet: fleet-test-dev # azure_availability_set
+  nsg: rancher-managed-fleet-test-dev # azure_nsg_name
+  subnet: fleet-test-dev # azure_subnet_name
+  vnet: fleet-test-dev-vnet # azure_vnet_name

@@ -1,0 +1,39 @@
+# fleet-rke2-azure/base/azureconfig-agent.yaml
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: placeholder-agent-machineconfig-name # Patched by overlays
+  namespace: fleet-default # Namespace in Rancher where AzureConfig object will be created
+  labels:
+    pool-role: worker
+    # Environment label will be added by overlay's commonLabels
+spec:
+  acceleratedNetworking: false
+  availabilitySet: placeholder-azure-availability-set # Patched by overlays
+  availabilityZone: ""
+  customData: ""
+  diskSize: "50" # Patched by overlays
+  dns: ""
+  dockerPort: "2376"
+  enablePublicIpStandardSku: false
+  environment: AzurePublicCloud
+  faultDomainCount: "2"
+  image: placeholder-node-image # Patched by overlays
+  kind: AzureConfig
+  location: placeholder-azure-location # Patched by overlays
+  managedDisks: true
+  noPublicIp: false
+  nsg: placeholder-azure-nsg-name # Patched by overlays
+  plan: ""
+  privateIpAddress: ""
+  resourceGroup: placeholder-azure-resource-group # Patched by overlays
+  size: placeholder-node-vm-size # Patched by overlays
+  sshUser: placeholder-node-ssh-user # Patched by overlays
+  staticPublicIp: false
+  storageType: placeholder-node-storage-type # Patched by overlays
+  subnet: placeholder-azure-subnet-name # Patched by overlays
+  # subnetPrefix: "192.168.0.0/16"
+  tags: "role=worker,cluster=placeholder-cluster-name" # Example tags, cluster name patched
+  updateDomainCount: "5"
+  usePrivateIp: false
+  vnet: placeholder-azure-vnet-name # Patched by overlays

@@ -1,0 +1,25 @@
+# fleet-rke2-azure/overlays/dev/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Inherit from the base
+bases:
+  - ../../base
+
+# Namespace for the resources in this overlay (optional, if you want to deploy them to a specific ns in management cluster)
+# namespace: fleet-default # Or dev-cluster-definitions
+
+# Common labels for all resources in this overlay
+commonLabels:
+  env: dev
+
+# Patches to apply to the base resources
+patchesStrategicMerge:
+  - patch-cluster-name.yaml
+  - patch-azure-details.yaml
+  - patch-node-config.yaml
+  - patch-node-counts.yaml
+
+# You can also use 'replacements' for more complex field manipulations if needed,
+# or 'patches' with JSON patch syntax.
+# For the CCM secret, we'll use patchesStrategicMerge on the Secret object.

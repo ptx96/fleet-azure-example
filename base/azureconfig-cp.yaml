@@ -1,0 +1,44 @@
+# fleet-rke2-azure/base/azureconfig-cp.yaml
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: placeholder-cp-machineconfig-name # Patched by overlays
+  namespace: fleet-default # Namespace in Rancher where AzureConfig object will be created
+  labels:
+    pool-role: controlplane
+    # Environment label will be added by overlay's commonLabels
+spec:
+  acceleratedNetworking: false
+  availabilitySet: placeholder-azure-availability-set # Patched by overlays
+  availabilityZone: "" # Specify if needed, e.g., "1", "2", "3"
+  # clientId: "" # Not needed if cloudCredentialSecretName is used at cluster/pool level
+  # clientSecret: "" # Not needed
+  customData: "" # For cloud-init scripts if necessary
+  diskSize: "50" # Patched by overlays
+  dns: "" # Optional: DNS label for public IP
+  dockerPort: "2376" # Default, usually fine
+  enablePublicIpStandardSku: false
+  environment: AzurePublicCloud
+  faultDomainCount: "2" # Default for availability sets
+  image: placeholder-node-image # Patched by overlays
+  kind: AzureConfig
+  location: placeholder-azure-location # Patched by overlays
+  managedDisks: true
+  noPublicIp: false # Set to true for private nodes, ensure connectivity from Rancher
+  nsg: placeholder-azure-nsg-name # Patched by overlays
+  plan: "" # Only if using specific Azure Marketplace images with a plan
+  privateIpAddress: "" # Set for static private IP if needed
+  resourceGroup: placeholder-azure-resource-group # Patched by overlays
+  size: placeholder-node-vm-size # Patched by overlays
+  sshUser: placeholder-node-ssh-user # Patched by overlays
+  staticPublicIp: false # Set to true for static public IP
+  storageType: placeholder-node-storage-type # Patched by overlays
+  subnet: placeholder-azure-subnet-name # Patched by overlays
+  # subnetPrefix: "192.168.0.0/16" # Only if Rancher is creating the subnet
+  # subscriptionId: "" # Not needed here, taken from cloudCredential or CCM config
+  tags: "role=controlplane,cluster=placeholder-cluster-name" # Example tags, cluster name patched
+  # tenantId: "" # Not needed
+  updateDomainCount: "5" # Default for availability sets
+  usePrivateIp: false # If true, Rancher connects via private IP
+  vnet: placeholder-azure-vnet-name # Patched by overlays, format: resourceGroup:vnetName if in different RG
+                                    # or just vnetName if in same RG as machine

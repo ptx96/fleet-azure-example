@@ -1,0 +1,13 @@
+# fleet-rke2-azure/base/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# List of resources to include in the base
+resources:
+  - cluster.yaml
+  - azureconfig-cp.yaml
+  - azureconfig-agent.yaml
+
+# Common labels to apply to all resources
+commonLabels:
+  app.kubernetes.io/managed-by: fleet

@@ -1,0 +1,25 @@
+# fleet-rke2-azure/overlays/dev/patch-node-config.yaml
+# Patch for Control Plane AzureConfig
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: fleet-test-dev-cp # Selector
+spec:
+  size: Standard_B2as_v2 # node_vm_size
+  image: SUSE:sles-15-sp5-byos:gen2:2024.05.08 # node_image
+  sshUser: devops-user # node_ssh_user
+  diskSize: "50" # node_os_disk_size (ensure it's a string)
+  storageType: Standard_LRS # node_storage_type
+
+---
+# Patch for Worker/Agent AzureConfig
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: fleet-test-dev-agent # Selector
+spec:
+  size: Standard_B2as_v2 # node_vm_size
+  image: SUSE:sles-15-sp5-byos:gen2:2024.05.08 # node_image
+  sshUser: devops-user # node_ssh_user
+  diskSize: "50" # node_os_disk_size (ensure it's a string)
+  storageType: Standard_LRS # node_storage_type

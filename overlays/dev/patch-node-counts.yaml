@@ -1,0 +1,12 @@
+# fleet-rke2-azure/overlays/dev/patch-node-counts.yaml
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: fleet-test-dev # Selector
+spec:
+  rkeConfig:
+    machinePools:
+    - name: cp # Selector for control plane pool
+      quantity: 1 # cp_node_count
+    - name: agent # Selector for worker pool
+      quantity: 1 # worker_node_count

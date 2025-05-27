@@ -1,0 +1,21 @@
+# Example for 'dev' environment
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: fleet-azure-devenv    # Unique name for this GitRepo registration
+  namespace: fleet-default # Namespace where Fleet is running (usually fleet-local for local cluster)
+spec:
+  repo: https://github.com/ptx96/fleet-azure-example # Replace with your Git repository URL
+  branch: master # Or your specific branch
+  paths:
+    - overlays/dev # Path to the Kustomize overlay for the 'dev' environment
+  # If you are targeting a specific downstream cluster managed by Rancher,
+  # you would specify it here. If deploying to the 'local' cluster (where Rancher runs),
+  # this might look different or you might use clientSecretName for a cluster registration token.
+  # For provisioning new clusters, you typically apply these CRDs to the 'local' cluster.
+  # Ensure this GitRepo is targeted to run on your Rancher management cluster.
+  
+  # Target clusters (management cluster in this case)
+  targets:
+    - name: local-target
+      clusterName: local

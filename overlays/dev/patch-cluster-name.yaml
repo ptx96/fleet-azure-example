@@ -1,0 +1,42 @@
+# fleet-rke2-azure/overlays/dev/patch-cluster-name.yaml
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: fleet-test-dev # k8s_cluster_name
+spec:
+  kubernetesVersion: v1.30.10+rke2r1 # k8s_version
+  rkeConfig:
+    machinePools:
+      - name: cp # Must match base machinePool name
+        machineConfigRef:
+          name: fleet-test-dev-cp # New AzureConfig name for this cluster/env
+      - name: agent # Must match base machinePool name
+        machineConfigRef:
+          name: fleet-test-dev-agent # New AzureConfig name for this cluster/env
+---
+# Patch for Control Plane AzureConfig metadata name
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: fleet-test-dev-cp # Must match Cluster.spec.rkeConfig.machinePools[cp].machineConfigRef.name
+---
+# Patch for Agent AzureConfig metadata name
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: fleet-test-dev-agent # Must match Cluster.spec.rkeConfig.machinePools[agent].machineConfigRef.name
+---
+# Patch for AzureConfig tags to include the correct cluster name
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: fleet-test-dev-cp # Select the CP config
+spec:
+  tags: "role=controlplane,cluster=fleet-test-dev,env=dev"
+---
+apiVersion: rke-machine-config.cattle.io/v1
+kind: AzureConfig
+metadata:
+  name: fleet-test-dev-agent # Select the Agent config
+spec:
+  tags: "role=worker,cluster=fleet-test-dev,env=dev"

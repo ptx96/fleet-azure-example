@@ -1,0 +1,75 @@
+# fleet-rke2-azure/base/cluster.yaml
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: placeholder-cluster-name # Patched by overlays
+  namespace: fleet-default # Namespace in Rancher where cluster object will be created
+  labels:
+    cluster-type: rke2-azure-vm
+    created-by: terraform-fleet # Or your identifier
+    # Environment label will be added by overlay's commonLabels
+spec:
+  cloudCredentialSecretName: cattle-global-data:cc-k8mmb # Existing secret in Rancher
+  enableNetworkPolicy: false
+  kubernetesVersion: placeholder-k8s-version # Patched by overlays
+  localClusterAuthEndpoint: {}
+  rkeConfig:
+    chartValues:
+      rke2-calico: {} # Default Calico CNI. Customize if needed.
+    etcd:
+      snapshotRetention: 5
+      snapshotScheduleCron: 0 */5 * * *
+    machineGlobalConfig:
+      disable-kube-proxy: false # Set to true if using a CNI that replaces kube-proxy (like Cilium in some modes)
+      etcd-expose-metrics: false
+      kube-controller-manager-arg:
+        - '--configure-cloud-routes=false' # Consistent with CCM configuration
+    machinePoolDefaults: {} # No defaults here, specified per pool
+    machinePools:
+      - cloudCredentialSecretName: cattle-global-data:cc-k8mmb # Existing secret
+        controlPlaneRole: true
+        etcdRole: true
+        displayName: cp # Pool display name
+        machineConfigRef:
+          kind: AzureConfig
+          name: placeholder-cp-machineconfig-name # Patched by overlays
+        name: cp # Pool internal name
+        quantity: 1 # Patched by overlays
+        drainBeforeDelete: true
+        # dynamicSchemaSpec removed for brevity, it's usually not patched.
+        # If you need to customize specific fields from it, they can be added here.
+      - cloudCredentialSecretName: cattle-global-data:cc-k8mmb # Existing secret
+        workerRole: true
+        displayName: agent # Pool display name
+        machineConfigRef:
+          kind: AzureConfig
+          name: placeholder-agent-machineconfig-name # Patched by overlays
+        name: agent # Pool internal name
+        quantity: 1 # Patched by overlays
+        drainBeforeDelete: true
+        # dynamicSchemaSpec removed for brevity
+    machineSelectorConfig: # Kubelet args
+      - config:
+          cloud-provider-name: external # Crucial for out-of-tree CCM
+          protect-kernel-defaults: false
+    upgradeStrategy:
+      controlPlaneConcurrency: '1'
+      controlPlaneDrainOptions:
+        deleteEmptyDirData: true
+        disableEviction: false
+        enabled: false # Set to true to enable drain for CP nodes
+        force: false
+        gracePeriod: 0
+        ignoreDaemonSets: true
+        skipWaitForDeleteTimeoutSeconds: 0
+        timeout: 120
+      workerConcurrency: '1'
+      workerDrainOptions:
+        deleteEmptyDirData: true
+        disableEviction: false
+        enabled: true
+        force: true
+        gracePeriod: 0
+        ignoreDaemonSets: true
+        skipWaitForDeleteTimeoutSeconds: 0
+        timeout: 120
