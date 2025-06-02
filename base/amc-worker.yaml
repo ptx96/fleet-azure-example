@@ -8,6 +8,7 @@ metadata:
 # Azure location and resource group
 location: westeurope
 resourceGroup: placeholder-rg
+faultDomainCount: '2'
 
 # VM configuration
 size: Standard_B2s
