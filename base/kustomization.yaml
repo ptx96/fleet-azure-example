@@ -1,0 +1,4 @@
+resources:
+  - cluster.yaml
+  - amc-cp.yaml
+  - amc-worker.yaml

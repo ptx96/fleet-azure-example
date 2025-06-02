@@ -1,0 +1,42 @@
+# Azure RKE2 Cluster Base Configuration
+# This file defines a complete cluster configuration without environment-specific values
+
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: cluster
+  namespace: fleet-default
+spec:
+  # Kubernetes version
+  kubernetesVersion: v1.30.10+rke2r1
+  
+  # RKE2 configuration
+  rkeConfig:
+    machineGlobalConfig:
+      cni: calico
+      disable-kube-proxy: false
+      etcd-expose-metrics: false
+    
+    # Control plane configuration
+    machinePools:
+    - name: control-plane
+      quantity: 1
+      etcdRole: true
+      controlPlaneRole: true
+      workerRole: false
+      machineConfigRef:
+        kind: AzureConfig
+        name: cp-config
+    
+    # Worker nodes configuration
+    - name: worker
+      quantity: 1
+      etcdRole: false
+      controlPlaneRole: false
+      workerRole: true
+      machineConfigRef:
+        kind: AzureConfig
+        name: worker-config
+  
+  # Cloud credential reference (must exist in Rancher)
+  cloudCredentialSecretName: azure-cloud-credential

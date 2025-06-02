@@ -1,0 +1,55 @@
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Kubernetes config files (sensitive)
+*.kubeconfig
+kubeconfig*
+
+# Logs
+*.log
+logs/
+
+# Backup files
+*.bak
+*.backup
+
+# Environment specific secrets (if any)
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+build/
+dist/
+target/
+
+# Dependencies
+node_modules/
+vendor/
+
+# Terraform state (if used)
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Helm charts dependencies
+charts/*.tgz
+
+# Fleet generated files
+.fleet/
+
+# Example folder
+example/

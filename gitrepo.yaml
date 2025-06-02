@@ -1,0 +1,20 @@
+# Fleet configuration for Azure Kubernetes cluster provisioning
+# This file defines the global Fleet settings for the repository
+
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: azure-cluster-provisioning
+  namespace: fleet-local
+spec:
+  # Repository configuration
+  repo: https://github.com/ptx96/fleet-azure-example
+  branch: master
+  
+  # Polling interval for Git repository changes
+  pollingInterval: 15s
+
+  correctDrift:
+    enabled: true
+  #   force: false #Warning: it might recreate resources if set to true
+  #   keepFailHistory: false

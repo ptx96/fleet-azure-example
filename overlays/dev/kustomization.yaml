@@ -1,0 +1,24 @@
+resources:
+  - ../../base
+namePrefix: foo-
+nameSuffix: -dev
+labels:
+- pairs:
+    environment: dev
+    cluster.cattle.io/environment: dev
+patches:
+  - path: patch-cluster.yaml
+    target:
+      kind: Cluster
+      name: cluster
+      group: provisioning.cattle.io
+  - path: patch-cp.yaml
+    target:
+      kind: AzureConfig
+      name: cp-config
+      group: rke-machine-config.cattle.io
+  - path: patch-worker.yaml
+    target:
+      kind: AzureConfig
+      name: worker-config
+      group: rke-machine-config.cattle.io

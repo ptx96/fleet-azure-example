@@ -1,0 +1,24 @@
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: cluster
+spec:
+  rkeConfig:
+    machinePools:
+    - name: control-plane
+      quantity: 1
+      etcdRole: true
+      controlPlaneRole: true
+      workerRole: false
+      machineConfigRef:
+        kind: AzureConfig
+        name: foo-cp-config-dev
+    - name: worker
+      quantity: 1
+      etcdRole: false
+      controlPlaneRole: false
+      workerRole: true
+      machineConfigRef:
+        kind: AzureConfig
+        name: foo-worker-config-dev
+  cloudCredentialSecretName: cattle-global-data:cc-k8mmb
