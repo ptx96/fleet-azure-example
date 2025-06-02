@@ -15,6 +15,4 @@ image: SUSE:sles-15-sp5-byos:gen2:2024.05.08
 
 sshUser: devops-user
 
-tags:
-  Environment: dev
-  CostCenter: development
+tags: "Environment=dev,CostCenter=development"

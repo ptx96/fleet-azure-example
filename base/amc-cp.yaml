@@ -33,6 +33,4 @@ noPublicIp: false
 staticPublicIp: false
 
 # Tags
-tags:
-  ManagedBy: fleet
-  Project: rancher-rke2
+tags: "Environment=foo,CostCenter=bar"
