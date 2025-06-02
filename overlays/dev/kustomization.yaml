@@ -1,11 +1,14 @@
 resources:
   - ../../base
+
 namePrefix: foo-
 nameSuffix: -dev
+
 labels:
 - pairs:
     environment: dev
     cluster.cattle.io/environment: dev
+
 patches:
   - path: patch-cluster.yaml
     target:
