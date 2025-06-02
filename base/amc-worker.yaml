@@ -1,44 +1,38 @@
-# Worker Machine Configuration
+# Control Plane Machine Configuration
 apiVersion: rke-machine-config.cattle.io/v1
 kind: AzureConfig
 metadata:
   name: worker-config
   namespace: fleet-default
-spec:
-  # Azure location and resource group
-  location: westeurope
-  resourceGroup: placeholder-rg
-  
-  # VM configuration
-  vmSize: Standard_B2s
-  availabilitySet: placeholder-avset
-  
-  # Network configuration
-  vnet: placeholder-vnet
-  subnet: placeholder-subnet
-  securityGroup: placeholder-nsg
-  
-  # OS and storage configuration
-  image:
-    publisher: SUSE
-    offer: sles-15-sp5-byos
-    sku: gen2
-    version: latest
-  
-  osDisk:
-    diskSizeGb: 50
-    managedDisk: true
-    storageAccountType: Standard_LRS
-  
-  # SSH configuration
-  sshUser: azureuser
-  
-  # Additional settings
-  managedIdentity: true
-  noPublicIp: false
-  staticPublicIp: false
-  
-  # Tags
-  tags:
-    ManagedBy: fleet
-    Project: rancher-rke2
+
+# Azure location and resource group
+location: westeurope
+resourceGroup: placeholder-rg
+
+# VM configuration
+size: Standard_B2s
+availabilitySet: placeholder-avset
+
+# Network configuration
+vnet: placeholder-vnet
+subnet: placeholder-subnet
+nsg: placeholder-nsg
+
+# OS and storage configuration
+image: SUSE:sles-15-sp5-byos:gen2:latest
+diskSize: '50'
+managedDisks: true
+storageType: Standard_LRS
+
+# SSH configuration
+sshUser: azureuser
+
+# Additional settings
+managedIdentity: true
+noPublicIp: false
+staticPublicIp: false
+
+# Tags
+tags:
+  ManagedBy: fleet
+  Project: rancher-rke2

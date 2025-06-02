@@ -208,7 +208,7 @@ kubectl get secret <cluster-name>-kubeconfig -n fleet-default -o jsonpath='{.dat
 ### Modifying Cluster Configuration
 
 - **Node Count**: Edit `nodeQuantity` in environment-specific `cluster-values.yaml`
-- **VM Size**: Edit `vmSize` in environment-specific `cluster-values.yaml`
+- **VM Size**: Edit `size` in environment-specific `cluster-values.yaml`
 - **Kubernetes Version**: Edit `kubernetesVersion` in base `cluster.yaml`
 - **Azure Region**: Edit `region` in environment-specific `cluster-values.yaml`
 

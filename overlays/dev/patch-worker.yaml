@@ -2,20 +2,19 @@ apiVersion: rke-machine-config.cattle.io/v1
 kind: AzureConfig
 metadata:
   name: worker-config
-spec:
-  location: germanywestcentral
-  resourceGroup: foo-machine
-  vmSize: Standard_B2as_v2
-  availabilitySet: fleet-test-dev
-  vnet: fleet-test-dev-vnet
-  subnet: fleet-test-dev
-  securityGroup: rancher-managed-fleet-test-dev
-  image:
-    publisher: SUSE
-    offer: sles-15-sp5-byos
-    sku: gen2
-    version: "2024.05.08"
-  sshUser: devops-user
-  tags:
-    Environment: dev
-    CostCenter: development
+
+location: germanywestcentral
+resourceGroup: foo-machine
+size: Standard_B2as_v2
+availabilitySet: fleet-test-dev
+vnet: fleet-test-dev-vnet
+subnet: fleet-test-dev
+nsg: rancher-managed-fleet-test-dev
+
+image: SUSE:sles-15-sp5-byos:gen2:2024.05.08
+
+sshUser: devops-user
+
+tags:
+  Environment: dev
+  CostCenter: development
