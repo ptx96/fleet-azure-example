@@ -9,3 +9,13 @@
 kustomize:
   # To use a kustomization.yaml different from the one in the root folder
   dir: ""
+
+# Ignore dynamicSchemaSpec
+diff:
+  comparePatches:
+  - apiVersion: provisioning.cattle.io/v1
+    kind: Cluster
+    name: foo-cluster-dev
+    operations:
+    - {"op":"remove", "path":"/spec/rkeConfig/machinePools/0/dynamicSchemaSpec"}
+    - {"op":"remove", "path":"/spec/rkeConfig/machinePools/1/dynamicSchemaSpec"}
