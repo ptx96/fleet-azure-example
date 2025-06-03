@@ -29,7 +29,7 @@ storageType: Standard_LRS
 sshUser: azureuser
 
 # Additional settings
-managedIdentity: true
+#managedIdentity: true
 noPublicIp: false
 staticPublicIp: false
 
